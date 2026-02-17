@@ -1,0 +1,505 @@
+[
+  {
+    "participant_id": 6,
+    "video": "lecture_videos/Genes.webm",
+    "difficulty": "Easy",
+    "source_file": "timestamped_events.csv",
+    "baseline": 4,
+    "test": 1,
+    "delta": -3,
+    "subjective_q1": 3.0,
+    "subjective_q2": 1.0,
+    "emotions": {
+      "Neutral": 623,
+      "Surprise": 140,
+      "Fear": 43,
+      "Disgust": 6
+    },
+    "blinks": {
+      "short": 18,
+      "medium": 52,
+      "long": 6
+    },
+    "fixations": {
+      "short": {
+        "low_dispersion": 5,
+        "high_dispersion": 269
+      },
+      "medium": {
+        "low_dispersion": 2,
+        "high_dispersion": 140
+      },
+      "long": {
+        "low_dispersion": 8,
+        "high_dispersion": 141
+      }
+    },
+    "pupil_diameter": {
+      "small": 345,
+      "medium": 33088,
+      "large": 134
+    },
+    "break_metrics": {
+      "emotions": {
+        "Surprise": 110,
+        "Neutral": 69,
+        "Fear": 4
+      },
+      "blinks": {
+        "short": 1,
+        "medium": 4,
+        "long": 2
+      },
+      "fixations": {
+        "short": {
+          "low_dispersion": 0,
+          "high_dispersion": 60
+        },
+        "medium": {
+          "low_dispersion": 1,
+          "high_dispersion": 27
+        },
+        "long": {
+          "low_dispersion": 1,
+          "high_dispersion": 27
+        }
+      },
+      "pupil_diameter": {
+        "small": 1070,
+        "medium": 6489,
+        "large": 5
+      },
+      "ecg_metrics": {
+        "heart_rate": 78.4013575819672,
+        "sdnn": 74.65455942622951,
+        "rmssd": 89.16634221311476,
+        "pnn50": 45.72520491803279
+      }
+    },
+    "ecg_metrics": {
+      "heart_rate": 81.34391158818097,
+      "sdnn": 85.53153855032318,
+      "rmssd": 95.26968490304708,
+      "pnn50": 54.31241343490305
+    }
+  },
+  {
+    "participant_id": 6,
+    "video": "lecture_videos/K-Means.webm",
+    "difficulty": "Easy",
+    "source_file": "timestamped_events.csv",
+    "baseline": 0,
+    "test": 4,
+    "delta": 4,
+    "subjective_q1": 1.0,
+    "subjective_q2": 3.0,
+    "emotions": {
+      "Neutral": 1011,
+      "Fear": 231,
+      "Surprise": 19,
+      "Disgust": 2
+    },
+    "blinks": {
+      "short": 13,
+      "medium": 64,
+      "long": 32
+    },
+    "fixations": {
+      "short": {
+        "low_dispersion": 13,
+        "high_dispersion": 275
+      },
+      "medium": {
+        "low_dispersion": 5,
+        "high_dispersion": 186
+      },
+      "long": {
+        "low_dispersion": 13,
+        "high_dispersion": 241
+      }
+    },
+    "pupil_diameter": {
+      "small": 952,
+      "medium": 50586,
+      "large": 599
+    },
+    "break_metrics": {
+      "emotions": {
+        "Neutral": 74,
+        "Surprise": 59,
+        "Fear": 50
+      },
+      "blinks": {
+        "short": 6,
+        "medium": 6,
+        "long": 3
+      },
+      "fixations": {
+        "short": {
+          "low_dispersion": 4,
+          "high_dispersion": 42
+        },
+        "medium": {
+          "low_dispersion": 0,
+          "high_dispersion": 33
+        },
+        "long": {
+          "low_dispersion": 1,
+          "high_dispersion": 33
+        }
+      },
+      "pupil_diameter": {
+        "small": 157,
+        "medium": 7407,
+        "large": 0
+      },
+      "ecg_metrics": {
+        "heart_rate": 75.12546106557379,
+        "sdnn": 81.2140625,
+        "rmssd": 100.0,
+        "pnn50": 60.0
+      }
+    },
+    "ecg_metrics": {
+      "heart_rate": 78.0909924287411,
+      "sdnn": 86.67367874109266,
+      "rmssd": 99.28327642517814,
+      "pnn50": 58.13590409738718
+    }
+  },
+  {
+    "participant_id": 6,
+    "video": "lecture_videos/Partial trace.mkv",
+    "difficulty": "Hard",
+    "source_file": "timestamped_events.csv",
+    "baseline": 0,
+    "test": 0,
+    "delta": 0,
+    "subjective_q1": 5.0,
+    "subjective_q2": 0.0,
+    "emotions": {
+      "Neutral": 1739,
+      "Surprise": 95,
+      "Fear": 2
+    },
+    "blinks": {
+      "short": 41,
+      "medium": 114,
+      "long": 21
+    },
+    "fixations": {
+      "short": {
+        "low_dispersion": 29,
+        "high_dispersion": 400
+      },
+      "medium": {
+        "low_dispersion": 12,
+        "high_dispersion": 255
+      },
+      "long": {
+        "low_dispersion": 49,
+        "high_dispersion": 448
+      }
+    },
+    "pupil_diameter": {
+      "small": 4362,
+      "medium": 70257,
+      "large": 1202
+    },
+    "break_metrics": {
+      "emotions": {
+        "Neutral": 179,
+        "Surprise": 3
+      },
+      "blinks": {
+        "short": 0,
+        "medium": 12,
+        "long": 1
+      },
+      "fixations": {
+        "short": {
+          "low_dispersion": 2,
+          "high_dispersion": 60
+        },
+        "medium": {
+          "low_dispersion": 1,
+          "high_dispersion": 31
+        },
+        "long": {
+          "low_dispersion": 0,
+          "high_dispersion": 31
+        }
+      },
+      "pupil_diameter": {
+        "small": 1694,
+        "medium": 5858,
+        "large": 2
+      },
+      "ecg_metrics": {
+        "heart_rate": 70.98783436213992,
+        "sdnn": 68.59359567901235,
+        "rmssd": 81.55257201646091,
+        "pnn50": 42.81617798353909
+      }
+    },
+    "ecg_metrics": {
+      "heart_rate": 72.42590342997141,
+      "sdnn": 90.42716925275623,
+      "rmssd": 98.76939567170274,
+      "pnn50": 56.54870355247039
+    }
+  },
+  {
+    "participant_id": 6,
+    "video": "lecture_videos/Super vs Unsuper Learning.mkv",
+    "difficulty": "Easy",
+    "source_file": "timestamped_events.csv",
+    "baseline": 0,
+    "test": 2,
+    "delta": 2,
+    "subjective_q1": 2.0,
+    "subjective_q2": 1.0,
+    "emotions": {
+      "Neutral": 406,
+      "Fear": 355,
+      "Surprise": 126,
+      "Sad": 13
+    },
+    "blinks": {
+      "short": 9,
+      "medium": 42,
+      "long": 10
+    },
+    "fixations": {
+      "short": {
+        "low_dispersion": 3,
+        "high_dispersion": 301
+      },
+      "medium": {
+        "low_dispersion": 2,
+        "high_dispersion": 163
+      },
+      "long": {
+        "low_dispersion": 1,
+        "high_dispersion": 148
+      }
+    },
+    "pupil_diameter": {
+      "small": 465,
+      "medium": 36551,
+      "large": 186
+    },
+    "break_metrics": {
+      "emotions": {
+        "Neutral": 152,
+        "Fear": 23,
+        "Surprise": 8
+      },
+      "blinks": {
+        "short": 1,
+        "medium": 9,
+        "long": 4
+      },
+      "fixations": {
+        "short": {
+          "low_dispersion": 0,
+          "high_dispersion": 46
+        },
+        "medium": {
+          "low_dispersion": 0,
+          "high_dispersion": 23
+        },
+        "long": {
+          "low_dispersion": 7,
+          "high_dispersion": 50
+        }
+      },
+      "pupil_diameter": {
+        "small": 153,
+        "medium": 7401,
+        "large": 12
+      },
+      "ecg_metrics": {
+        "heart_rate": 79.54626024590164,
+        "sdnn": 91.82085040983605,
+        "rmssd": 93.3126280737705,
+        "pnn50": 52.002612704918036
+      }
+    },
+    "ecg_metrics": {
+      "heart_rate": 82.87103265391015,
+      "sdnn": 68.78486896838602,
+      "rmssd": 87.8941659733777,
+      "pnn50": 50.57140183028286
+    }
+  },
+  {
+    "participant_id": 6,
+    "video": "lecture_videos/UNET.mp4",
+    "difficulty": "Hard",
+    "source_file": "timestamped_events.csv",
+    "baseline": 0,
+    "test": 0,
+    "delta": 0,
+    "subjective_q1": null,
+    "subjective_q2": null,
+    "emotions": {
+      "Neutral": 1148,
+      "Surprise": 48,
+      "Sad": 6,
+      "Fear": 1
+    },
+    "blinks": {
+      "short": 12,
+      "medium": 106,
+      "long": 23
+    },
+    "fixations": {
+      "short": {
+        "low_dispersion": 10,
+        "high_dispersion": 348
+      },
+      "medium": {
+        "low_dispersion": 1,
+        "high_dispersion": 146
+      },
+      "long": {
+        "low_dispersion": 8,
+        "high_dispersion": 160
+      }
+    },
+    "pupil_diameter": {
+      "small": 9635,
+      "medium": 39964,
+      "large": 72
+    },
+    "break_metrics": {
+      "emotions": {
+        "Neutral": 143,
+        "Surprise": 39,
+        "Disgust": 1
+      },
+      "blinks": {
+        "short": 1,
+        "medium": 24,
+        "long": 4
+      },
+      "fixations": {
+        "short": {
+          "low_dispersion": 3,
+          "high_dispersion": 48
+        },
+        "medium": {
+          "low_dispersion": 0,
+          "high_dispersion": 18
+        },
+        "long": {
+          "low_dispersion": 1,
+          "high_dispersion": 6
+        }
+      },
+      "pupil_diameter": {
+        "small": 222,
+        "medium": 6401,
+        "large": 933
+      },
+      "ecg_metrics": {
+        "heart_rate": 76.58575819672132,
+        "sdnn": 89.65105020491804,
+        "rmssd": 99.77423155737705,
+        "pnn50": 58.63609118852459
+      }
+    },
+    "ecg_metrics": {
+      "heart_rate": 78.50509663341646,
+      "sdnn": 85.80224049251869,
+      "rmssd": 99.26499766209476,
+      "pnn50": 58.44395651496259
+    }
+  },
+  {
+    "participant_id": 6,
+    "video": "lecture_videos/VelPoten_ StreamFunctions.mp4",
+    "difficulty": "Hard",
+    "source_file": "timestamped_events.csv",
+    "baseline": 1,
+    "test": 2,
+    "delta": 1,
+    "subjective_q1": 2.0,
+    "subjective_q2": 1.0,
+    "emotions": {
+      "Surprise": 615,
+      "Fear": 471,
+      "Neutral": 463,
+      "Sad": 11,
+      "Disgust": 3
+    },
+    "blinks": {
+      "short": 27,
+      "medium": 57,
+      "long": 15
+    },
+    "fixations": {
+      "short": {
+        "low_dispersion": 24,
+        "high_dispersion": 483
+      },
+      "medium": {
+        "low_dispersion": 6,
+        "high_dispersion": 236
+      },
+      "long": {
+        "low_dispersion": 9,
+        "high_dispersion": 238
+      }
+    },
+    "pupil_diameter": {
+      "small": 1026,
+      "medium": 57941,
+      "large": 5556
+    },
+    "break_metrics": {
+      "emotions": {
+        "Surprise": 85,
+        "Fear": 58,
+        "Neutral": 40
+      },
+      "blinks": {
+        "short": 0,
+        "medium": 5,
+        "long": 2
+      },
+      "fixations": {
+        "short": {
+          "low_dispersion": 0,
+          "high_dispersion": 41
+        },
+        "medium": {
+          "low_dispersion": 0,
+          "high_dispersion": 20
+        },
+        "long": {
+          "low_dispersion": 2,
+          "high_dispersion": 26
+        }
+      },
+      "pupil_diameter": {
+        "small": 920,
+        "medium": 6577,
+        "large": 68
+      },
+      "ecg_metrics": {
+        "heart_rate": 83.12551229508196,
+        "sdnn": 71.55166495901639,
+        "rmssd": 91.07141393442623,
+        "pnn50": 45.46316598360656
+      }
+    },
+    "ecg_metrics": {
+      "heart_rate": 81.50481277004322,
+      "sdnn": 72.34459913586173,
+      "rmssd": 88.90929248679788,
+      "pnn50": 46.853171507441196
+    }
+  }
+]
