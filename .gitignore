@@ -1,0 +1,5 @@
+
+# model checkpoints
+*.pth
+analysis/detect_emotion/checkpoints/
+
