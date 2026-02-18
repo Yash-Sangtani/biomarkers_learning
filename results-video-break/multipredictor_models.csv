@@ -1,0 +1,13 @@
+model,feature,n_obs,n_predictors,coef,ci_low,ci_high,p_value,model_aic,p_value_fdr
+fixation_low_disp_model,fixations_short_low_dispersion,36,3,0.113384,-0.019869,0.246636,0.095372,147.04,0.520068
+fixation_low_disp_model,fixations_medium_low_dispersion,36,3,0.145318,-0.390125,0.68076,0.594775,147.04,0.892163
+fixation_low_disp_model,fixations_long_low_dispersion,36,3,-0.004374,-0.076131,0.067383,0.904895,147.04,0.944921
+ecg_model,diff_ecg_heart_rate,36,4,-0.064636,-0.238669,0.109397,0.466653,150.21,0.892163
+ecg_model,diff_ecg_sdnn,36,4,-0.009451,-0.062166,0.043263,0.725282,150.21,0.944921
+ecg_model,diff_ecg_rmssd,36,4,-0.079138,-0.297147,0.138871,0.476789,150.21,0.892163
+ecg_model,diff_ecg_pnn50,36,4,0.011621,-0.166749,0.189991,0.898392,150.21,0.944921
+cross_modal_top,Fear,34,5,0.008475,-0.019743,0.036693,0.556073,139.01,0.892163
+cross_modal_top,blinks_short,34,5,-0.001007,-0.029586,0.027572,0.944921,139.01,0.944921
+cross_modal_top,fixations_short_low_dispersion,34,5,0.105608,-0.031105,0.24232,0.130017,139.01,0.520068
+cross_modal_top,pupil_diameter_small,34,5,0.027566,-0.001742,0.056874,0.065263,139.01,0.520068
+cross_modal_top,diff_ecg_rmssd,34,5,-0.055209,-0.191965,0.081547,0.428801,139.01,0.892163

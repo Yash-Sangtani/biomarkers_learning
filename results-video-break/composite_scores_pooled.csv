@@ -1,0 +1,8 @@
+composite,n_features,n_obs,pearson_r,p_value,p_value_fdr
+emotion_composite,9,36,0.2126,0.213242,0.631867
+blink_composite,3,34,-0.0855,0.630783,0.735913
+fixation_composite,6,36,0.1064,0.536711,0.735913
+pupil_composite,3,36,0.1885,0.2708,0.631867
+ecg_composite,4,36,-0.2275,0.182092,0.631867
+eye_tracking_composite,12,36,0.1331,0.439011,0.735913
+all_biomarkers_composite,26,36,0.0228,0.894831,0.894831
