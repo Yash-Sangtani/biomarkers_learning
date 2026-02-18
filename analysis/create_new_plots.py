@@ -7,6 +7,8 @@ import seaborn as sns
 import math
 from collections import defaultdict
 from scipy.stats import pearsonr
+import statsmodels.formula.api as smf
+from statsmodels.stats.multitest import multipletests
 import matplotlib.colors as mcolors
 from matplotlib.lines import Line2D
 import matplotlib.patches as mpatches
@@ -86,6 +88,21 @@ def load_participant_data(results_folder='results'):
 
 def calculate_emotion_metrics(emotions_dict):
     """Calculate percentages for emotion metrics."""
+    if not emotions_dict:
+        return {
+            'emotion_diversity': None,
+            'non_neutral_percent': None,
+            'positive_percent': None,
+            'negative_percent': None,
+            'neutral_percent': None,
+            'happy_percent': None,
+            'sad_percent': None,
+            'surprise_percent': None,
+            'fear_percent': None,
+            'disgust_percent': None,
+            'angry_percent': None
+        }
+
     # Calculate total emotions displayed
     total_emotions = sum(emotions_dict.values())
     
@@ -159,6 +176,13 @@ def calculate_eye_metrics(video_data):
     blinks = video_data.get('blinks', {})
     fixations = video_data.get('fixations', {})
     pupil_diameter = video_data.get('pupil_diameter', {})
+
+    if not isinstance(blinks, dict):
+        blinks = {}
+    if not isinstance(fixations, dict):
+        fixations = {}
+    if not isinstance(pupil_diameter, dict):
+        pupil_diameter = {}
     
     # Calculate blink percentages
     short_blinks = blinks.get('short', 0)
@@ -244,6 +268,36 @@ def calculate_eye_metrics(video_data):
         'large_pupil_percent': large_pupil_percent
     }
 
+def apply_missing_flags(emotion_metrics, eye_metrics, missing_reasons):
+    """Set metrics to None when missingness is explicitly flagged."""
+    if not missing_reasons:
+        return emotion_metrics, eye_metrics
+
+    if missing_reasons.get('emotions') is not None:
+        for key in list(emotion_metrics.keys()):
+            emotion_metrics[key] = None
+
+    if missing_reasons.get('blinks') is not None:
+        for key in ['total_blinks', 'short_blink_percent', 'medium_blink_percent', 'long_blink_percent']:
+            if key in eye_metrics:
+                eye_metrics[key] = None
+
+    if missing_reasons.get('fixations') is not None:
+        for key in [
+            'short_fixation_low_disp_percent', 'short_fixation_high_disp_percent',
+            'medium_fixation_low_disp_percent', 'medium_fixation_high_disp_percent',
+            'long_fixation_low_disp_percent', 'long_fixation_high_disp_percent'
+        ]:
+            if key in eye_metrics:
+                eye_metrics[key] = None
+
+    if missing_reasons.get('pupil') is not None:
+        for key in ['small_pupil_percent', 'medium_pupil_percent', 'large_pupil_percent']:
+            if key in eye_metrics:
+                eye_metrics[key] = None
+
+    return emotion_metrics, eye_metrics
+
 def extract_features(participants_data):
     """Extract biomarker features from participant data."""
     all_features = []
@@ -260,6 +314,22 @@ def extract_features(participants_data):
             
             # Extract eye-tracking metrics
             eye_metrics = calculate_eye_metrics(video_data)
+
+            quality_info = video_data.get('quality', {})
+            missing_reasons = quality_info.get('missing_reason', {}) if isinstance(quality_info, dict) else {}
+            missing_reasons = dict(missing_reasons) if isinstance(missing_reasons, dict) else {}
+            if not video_data.get('emotions', {}):
+                missing_reasons.setdefault('emotions', 'no_samples')
+            if not isinstance(video_data.get('blinks'), dict) or not video_data.get('blinks'):
+                missing_reasons.setdefault('blinks', 'no_samples')
+            if not isinstance(video_data.get('fixations'), dict) or not video_data.get('fixations'):
+                missing_reasons.setdefault('fixations', 'no_samples')
+            if not isinstance(video_data.get('pupil_diameter'), dict) or not video_data.get('pupil_diameter'):
+                missing_reasons.setdefault('pupil', 'no_samples')
+
+            emotion_metrics, eye_metrics = apply_missing_flags(
+                emotion_metrics, eye_metrics, missing_reasons
+            )
             
             # Create feature dictionary
             features = {
@@ -267,6 +337,10 @@ def extract_features(participants_data):
                 'video': video_name,
                 'difficulty': difficulty,
                 'delta': delta,
+                'missing_emotions_reason': missing_reasons.get('emotions') if missing_reasons else None,
+                'missing_blinks_reason': missing_reasons.get('blinks') if missing_reasons else None,
+                'missing_fixations_reason': missing_reasons.get('fixations') if missing_reasons else None,
+                'missing_pupil_reason': missing_reasons.get('pupil') if missing_reasons else None,
                 **emotion_metrics,
                 **eye_metrics
             }
@@ -310,7 +384,11 @@ def safe_correlation(x, y):
 def calculate_participant_correlations(df):
     """Calculate correlations between features and delta for each participant."""
     participants = df['participant'].unique()
-    all_features = df.columns.drop(['participant', 'video', 'difficulty', 'delta'])
+    all_features = [
+        col for col in df.columns
+        if col not in ['participant', 'video', 'difficulty', 'delta']
+        and pd.api.types.is_numeric_dtype(df[col])
+    ]
     
     correlations = {}
     p_values = {}
@@ -335,6 +413,119 @@ def calculate_participant_correlations(df):
         p_values[participant] = participant_p_values
     
     return correlations, p_values
+
+def report_missingness(df, feature_cols, output_dir):
+    """Report missingness rates and flagged missingness reasons."""
+    missingness = []
+    for feature in feature_cols:
+        if feature in df.columns:
+            missingness.append({
+                "feature": feature,
+                "missing_rate": float(df[feature].isna().mean()),
+                "missing_count": int(df[feature].isna().sum()),
+                "total_count": int(len(df))
+            })
+    missingness_df = pd.DataFrame(missingness).sort_values(
+        by="missing_rate", ascending=False
+    )
+    missingness_path = os.path.join(output_dir, "missingness_report.csv")
+    missingness_df.to_csv(missingness_path, index=False)
+
+    reason_cols = [
+        'missing_emotions_reason', 'missing_blinks_reason',
+        'missing_fixations_reason', 'missing_pupil_reason'
+    ]
+    reasons = []
+    for col in reason_cols:
+        if col not in df.columns:
+            continue
+        modality = col.replace('missing_', '').replace('_reason', '')
+        for reason, count in df[col].value_counts(dropna=True).items():
+            reasons.append({
+                "modality": modality,
+                "reason": reason,
+                "count": int(count)
+            })
+    reasons_df = pd.DataFrame(reasons)
+    reasons_path = os.path.join(output_dir, "missingness_reasons.csv")
+    reasons_df.to_csv(reasons_path, index=False)
+    return missingness_path, reasons_path
+
+def impute_within_participant_median(df, feature_cols):
+    """Impute missing values within participant using median per feature."""
+    df_imputed = df.copy()
+    for feature in feature_cols:
+        if feature not in df_imputed.columns:
+            continue
+        df_imputed[feature] = df_imputed.groupby('participant')[feature].transform(
+            lambda series: series.fillna(series.median())
+        )
+    return df_imputed
+
+def run_mixed_effects(df, feature_cols, output_path):
+    """Run mixed-effects models for each biomarker with participant random intercept."""
+    results = []
+    for feature in feature_cols:
+        if feature not in df.columns:
+            continue
+
+        model_df = df[['participant', 'difficulty', 'delta', feature]].dropna()
+        if len(model_df) < 6 or model_df['participant'].nunique() < 2:
+            results.append({
+                "feature": feature,
+                "n_obs": int(len(model_df)),
+                "n_participants": int(model_df['participant'].nunique()),
+                "coef": None,
+                "ci_low": None,
+                "ci_high": None,
+                "p_value": None
+            })
+            continue
+
+        model_df = model_df.rename(columns={feature: 'feature_value'})
+        try:
+            model = smf.mixedlm(
+                "delta ~ feature_value + C(difficulty)",
+                model_df,
+                groups=model_df["participant"]
+            )
+            result = model.fit(reml=False)
+            coef = result.params.get("feature_value")
+            p_value = result.pvalues.get("feature_value")
+            ci = result.conf_int().loc["feature_value"].tolist()
+
+            results.append({
+                "feature": feature,
+                "n_obs": int(len(model_df)),
+                "n_participants": int(model_df['participant'].nunique()),
+                "coef": float(coef) if coef is not None else None,
+                "ci_low": float(ci[0]) if ci else None,
+                "ci_high": float(ci[1]) if ci else None,
+                "p_value": float(p_value) if p_value is not None else None
+            })
+        except Exception as exc:
+            print(f"Mixed-effects model failed for {feature}: {exc}")
+            results.append({
+                "feature": feature,
+                "n_obs": int(len(model_df)),
+                "n_participants": int(model_df['participant'].nunique()),
+                "coef": None,
+                "ci_low": None,
+                "ci_high": None,
+                "p_value": None
+            })
+
+    results_df = pd.DataFrame(results)
+    if not results_df.empty and results_df["p_value"].notna().any():
+        pvals = results_df["p_value"].fillna(1.0).values
+        _, adj_pvals, _, _ = multipletests(pvals, method="fdr_bh")
+        results_df["p_value_adj"] = adj_pvals
+    else:
+        results_df["p_value_adj"] = None
+
+    results_df.to_csv(output_path, index=False)
+    print(f"Mixed-effects results saved to {output_path}")
+    return results_df
 
 def create_radar_plot_for_participant(df, participant_id, features, title, output_path, difficulty_filter=None):
     """Create a radar plot for a single participant showing correlations for selected features."""
@@ -682,10 +873,7 @@ def main():
     
     print("Extracting features...")
     df = extract_features(participants_data)
-    
-    print("Calculating correlations...")
-    correlations, p_values = calculate_participant_correlations(df)
-    
+
     # Create a new plots_new directory if it doesn't exist
     if not os.path.exists('plots_new'):
         os.makedirs('plots_new')
@@ -715,6 +903,36 @@ def main():
     
     # All biomarkers combined
     all_features = emotion_features + eye_features
+
+    print("Reporting missingness...")
+    report_missingness(df, all_features, 'plots_new')
+
+    print("Running mixed-effects models (no imputation)...")
+    mixed_effects_no_impute = run_mixed_effects(
+        df, all_features, os.path.join('plots_new', 'mixed_effects_no_impute.csv')
+    )
+
+    print("Running mixed-effects models (imputed)...")
+    df_imputed = impute_within_participant_median(df, all_features)
+    mixed_effects_impute = run_mixed_effects(
+        df_imputed, all_features, os.path.join('plots_new', 'mixed_effects_imputed.csv')
+    )
+
+    print("Saving sensitivity analysis...")
+    sensitivity = mixed_effects_no_impute.merge(
+        mixed_effects_impute,
+        on="feature",
+        suffixes=("_no_impute", "_impute")
+    )
+    sensitivity["direction_changed"] = (
+        np.sign(sensitivity["coef_no_impute"].fillna(0))
+        != np.sign(sensitivity["coef_impute"].fillna(0))
+    )
+    sensitivity_path = os.path.join('plots_new', 'sensitivity_mixed_effects.csv')
+    sensitivity.to_csv(sensitivity_path, index=False)
+
+    print("Calculating correlations...")
+    correlations, p_values = calculate_participant_correlations(df)
     
     print("Creating plots for each participant...")
     for participant in participants:

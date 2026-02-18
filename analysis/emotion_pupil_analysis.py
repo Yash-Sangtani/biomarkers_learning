@@ -70,6 +70,7 @@ def process_and_plot_metrics(
     blink_map = {}  # Blink counts per category: short, medium, long
     fixation_map = {}  # Fixation counts categorized by duration and dispersion
     pupil_map = {}  # Pupil diameter counts in 3 categories: small, medium, large
+    quality_map = {}
 
     # Dispersion threshold for fixations remains fixed
     dispersion_thresh = 0.75
@@ -101,6 +102,7 @@ def process_and_plot_metrics(
         ]
         counts_emotions = subset_emotions["predicted_emotion"].value_counts().to_dict()
         emotion_map[key] = counts_emotions
+        emotions_missing_reason = "no_samples" if subset_emotions.empty else None
 
         # ---- Process Blinks using quantiles for duration ----
         subset_blinks = blink_df[
@@ -122,6 +124,7 @@ def process_and_plot_metrics(
         else:
             blink_counts = {"short": 0, "medium": 0, "long": 0}
         blink_map[key] = blink_counts
+        blinks_missing_reason = "no_samples" if subset_blinks.empty else None
 
         # ---- Process Fixations using quantiles for duration ----
         subset_fixations = fixation_df[
@@ -152,6 +155,7 @@ def process_and_plot_metrics(
             else:
                 fixation_categories[duration_cat]["high_dispersion"] += 1
         fixation_map[key] = fixation_categories
+        fixations_missing_reason = "no_samples" if subset_fixations.empty else None
 
         # ---- Process Pupil Diameter using quantiles ----
         subset_pupil = pupil_df[
@@ -173,6 +177,20 @@ def process_and_plot_metrics(
         else:
             pupil_counts = {"small": 0, "medium": 0, "large": 0}
         pupil_map[key] = pupil_counts
+        pupil_missing_reason = "no_samples" if subset_pupil.empty else None
+
+        quality_map[key] = {
+            "emotion_samples": int(len(subset_emotions)),
+            "blink_samples": int(len(subset_blinks)),
+            "fixation_samples": int(len(subset_fixations)),
+            "pupil_samples": int(len(subset_pupil)),
+            "missing_reason": {
+                "emotions": emotions_missing_reason,
+                "blinks": blinks_missing_reason,
+                "fixations": fixations_missing_reason,
+                "pupil": pupil_missing_reason,
+            },
+        }
 
     # -----------------------------
     # 3. Update JSON with metrics
@@ -196,6 +214,21 @@ def process_and_plot_metrics(
         )
         item["pupil_diameter"] = pupil_map.get(
             key, {"small": 0, "medium": 0, "large": 0}
+        )
+        item["quality"] = quality_map.get(
+            key,
+            {
+                "emotion_samples": 0,
+                "blink_samples": 0,
+                "fixation_samples": 0,
+                "pupil_samples": 0,
+                "missing_reason": {
+                    "emotions": "no_samples",
+                    "blinks": "no_samples",
+                    "fixations": "no_samples",
+                    "pupil": "no_samples",
+                },
+            },
         )
 
     with open(output_json, "w") as f:
