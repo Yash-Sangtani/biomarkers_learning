@@ -1,0 +1,6 @@
+modality,reason,count
+emotions,no_samples,2
+blinks,zero_blinks_detected_possible_tracker_loss,2
+fixations,zero_fixations_detected_possible_tracker_loss,2
+pupil,zero_readings_possible_tracker_loss,2
+ecg,no_ecg_data,6

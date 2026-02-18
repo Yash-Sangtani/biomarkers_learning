@@ -1,6 +1,7 @@
 *.pth filter=lfs diff=lfs merge=lfs -text
 *.pt filter=lfs diff=lfs merge=lfs -text
 *.csv filter=lfs diff=lfs merge=lfs -text
+reviewer_outputs/*.csv !filter !diff !merge text
 *.mp4 filter=lfs diff=lfs merge=lfs -text
 *.webm filter=lfs diff=lfs merge=lfs -text
 analysis/detect_emotion/checkpoints/** filter=lfs diff=lfs merge=lfs -text
