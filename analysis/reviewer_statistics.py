@@ -144,7 +144,7 @@ def calculate_eye_metrics(video_data):
     if not isinstance(pupil_diameter, dict):
         pupil_diameter = {}
 
-    # Blinks
+    # Blinks -- treat zero total as missing (tracker loss), not "no blinks"
     sb, mb, lb = blinks.get("short", 0), blinks.get("medium", 0), blinks.get("long", 0)
     tb = sb + mb + lb
     if tb == 0:

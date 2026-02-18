@@ -1,0 +1,7 @@
+participant,modality,total_videos,missing_videos,missing_rate_pct,reasons
+1,blinks,6,0,0.0,none
+2,blinks,6,0,0.0,none
+3,blinks,6,0,0.0,none
+4,blinks,6,2,33.33,{'break:zero_blinks_possible_tracker_loss': 2}
+5,blinks,6,0,0.0,none
+6,blinks,6,0,0.0,none

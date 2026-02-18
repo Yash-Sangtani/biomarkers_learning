@@ -1,0 +1,57 @@
+======================================================================
+REVIEWER-REQUESTED STATISTICAL SUMMARY
+======================================================================
+
+SECTION: MISSING DATA (Reviewer Concern 2)
+--------------------------------------------------
+
+Missingness rates per biomarker feature:
+  blinks_medium: 2/36 (5.6%)
+  blinks_short: 2/36 (5.6%)
+  blinks_long: 2/36 (5.6%)
+  Fear: 0/36 (0.0%)
+  Disgust: 0/36 (0.0%)
+  Anger: 0/36 (0.0%)
+  Neutral: 0/36 (0.0%)
+  Sad: 0/36 (0.0%)
+  Happy: 0/36 (0.0%)
+  Surprise: 0/36 (0.0%)
+  non_neutral: 0/36 (0.0%)
+  negative: 0/36 (0.0%)
+  positive: 0/36 (0.0%)
+  fixations_short_low_dispersion: 0/36 (0.0%)
+  fixations_short_high_dispersion: 0/36 (0.0%)
+  fixations_medium_low_dispersion: 0/36 (0.0%)
+  fixations_medium_high_dispersion: 0/36 (0.0%)
+  fixations_long_low_dispersion: 0/36 (0.0%)
+  fixations_long_high_dispersion: 0/36 (0.0%)
+  pupil_diameter_small: 0/36 (0.0%)
+  pupil_diameter_medium: 0/36 (0.0%)
+  pupil_diameter_large: 0/36 (0.0%)
+  diff_ecg_heart_rate: 0/36 (0.0%)
+  diff_ecg_sdnn: 0/36 (0.0%)
+  diff_ecg_rmssd: 0/36 (0.0%)
+  diff_ecg_pnn50: 0/36 (0.0%)
+
+Imputation: Within-participant median imputation was applied.
+Sensitivity: Mixed-effects models were run with and without imputation.
+  Direction of effect changed for 0/26 biomarkers.
+
+SECTION: STATISTICAL ANALYSIS (Reviewer Concern 1)
+--------------------------------------------------
+
+Per-participant Pearson correlations with 95% bootstrap CIs:
+  Total tests: 156
+  Significant after FDR (q<0.05): 0
+
+Mixed-effects models (delta ~ biomarker + difficulty, random intercept for participant):
+  Total biomarkers: 26
+  Significant after FDR (q<0.05): 0
+
+Permutation tests (5000 permutations per participant per biomarker):
+  Total tests: 156
+  Significant after FDR (q<0.05): 0
+
+======================================================================
+END OF SUMMARY
+======================================================================
