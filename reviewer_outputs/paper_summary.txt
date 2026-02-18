@@ -1,0 +1,93 @@
+======================================================================
+REVIEWER-REQUESTED STATISTICAL SUMMARY
+======================================================================
+
+SECTION: MISSING DATA (Reviewer Concern 2)
+--------------------------------------------------
+
+Missingness rates per biomarker feature:
+  emotion_diversity: 0/36 (0.0%)
+  non_neutral_percent: 0/36 (0.0%)
+  positive_percent: 0/36 (0.0%)
+  negative_percent: 0/36 (0.0%)
+  neutral_percent: 0/36 (0.0%)
+  happy_percent: 0/36 (0.0%)
+  sad_percent: 0/36 (0.0%)
+  surprise_percent: 0/36 (0.0%)
+  fear_percent: 0/36 (0.0%)
+  disgust_percent: 0/36 (0.0%)
+  angry_percent: 0/36 (0.0%)
+  short_blink_percent: 0/36 (0.0%)
+  medium_blink_percent: 0/36 (0.0%)
+  long_blink_percent: 0/36 (0.0%)
+  short_fixation_low_disp_percent: 0/36 (0.0%)
+  short_fixation_high_disp_percent: 0/36 (0.0%)
+  medium_fixation_low_disp_percent: 0/36 (0.0%)
+  medium_fixation_high_disp_percent: 0/36 (0.0%)
+  long_fixation_low_disp_percent: 0/36 (0.0%)
+  long_fixation_high_disp_percent: 0/36 (0.0%)
+  small_pupil_percent: 0/36 (0.0%)
+  medium_pupil_percent: 0/36 (0.0%)
+  large_pupil_percent: 0/36 (0.0%)
+  ecg_heart_rate: 0/36 (0.0%)
+  ecg_sdnn: 0/36 (0.0%)
+  ecg_rmssd: 0/36 (0.0%)
+  ecg_pnn50: 0/36 (0.0%)
+
+Missingness per participant per modality:
+  Participant 1, emotions: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 1, blinks: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 1, fixations: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 1, pupil: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 1, ecg: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 2, emotions: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 2, blinks: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 2, fixations: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 2, pupil: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 2, ecg: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 3, emotions: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 3, blinks: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 3, fixations: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 3, pupil: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 3, ecg: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 4, emotions: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 4, blinks: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 4, fixations: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 4, pupil: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 4, ecg: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 5, emotions: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 5, blinks: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 5, fixations: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 5, pupil: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 5, ecg: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 6, emotions: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 6, blinks: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 6, fixations: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 6, pupil: 0/6 videos missing (0.0%) -- reasons: none
+  Participant 6, ecg: 0/6 videos missing (0.0%) -- reasons: none
+
+Imputation: Within-participant median imputation was applied.
+Sensitivity: Mixed-effects models were run both with and without imputation.
+  Direction of effect changed for 0/27 biomarkers after imputation.
+
+SECTION: STATISTICAL ANALYSIS (Reviewer Concern 1)
+--------------------------------------------------
+
+Per-participant Pearson correlations with 95% bootstrap CIs:
+  Total correlation tests: 162
+  Significant after FDR correction (q < 0.05): 0
+
+Mixed-effects models (delta ~ biomarker + difficulty, random intercept for participant):
+  Total biomarkers tested: 27
+  Significant after FDR correction (q < 0.05): 2
+  Significant effects:
+    negative_percent: coef = 0.027405, 95% CI [0.010228, 0.044581], p = 0.001766, p_FDR = 0.022958
+    ecg_sdnn: coef = 0.037452, 95% CI [0.01494, 0.059964], p = 0.001112, p_FDR = 0.022958
+
+Permutation tests (5000 permutations per participant per biomarker):
+  Total tests: 162
+  Significant after FDR correction (q < 0.05): 0
+
+======================================================================
+END OF SUMMARY
+======================================================================
